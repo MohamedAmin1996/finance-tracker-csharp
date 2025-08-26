@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "D:\\finance-tracker-csharp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{81FB18FD-57B4-4346-91BB-A4A75FC0BB02}|finance_tracker_test\\finance_tracker_test.csproj|d:\\finance-tracker-csharp\\finance_tracker_test\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{81FB18FD-57B4-4346-91BB-A4A75FC0BB02}|finance_tracker_test\\finance_tracker_test.csproj|solutionrelative:finance_tracker_test\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0F9A0400-3AFC-5494-5F71-FDF08CE253BE}|finance_tracker_app\\finance_tracker_app.csproj|d:\\finance-tracker-csharp\\finance_tracker_app\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0F9A0400-3AFC-5494-5F71-FDF08CE253BE}|finance_tracker_app\\finance_tracker_app.csproj|solutionrelative:finance_tracker_app\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -23,19 +19,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UnitTest1.cs",
-              "DocumentMoniker": "D:\\finance-tracker-csharp\\finance_tracker_test\\UnitTest1.cs",
-              "RelativeDocumentMoniker": "finance_tracker_test\\UnitTest1.cs",
-              "ToolTip": "D:\\finance-tracker-csharp\\finance_tracker_test\\UnitTest1.cs",
-              "RelativeToolTip": "finance_tracker_test\\UnitTest1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-26T12:10:35.091Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\finance-tracker-csharp\\finance_tracker_app\\Program.cs",
               "RelativeDocumentMoniker": "finance_tracker_app\\Program.cs",
