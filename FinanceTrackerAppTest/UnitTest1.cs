@@ -1,4 +1,4 @@
-namespace finance_tracker_test
+namespace FinanceTrackerAppTest
 {
     public class UnitTest1
     {

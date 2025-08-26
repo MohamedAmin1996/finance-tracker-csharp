@@ -1,4 +1,4 @@
-﻿namespace finance_tracker_app
+﻿namespace FinanceTrackerApp
 {
     internal class Program
     {
