@@ -66,8 +66,8 @@ jobs:
             echo "Postgres is unavailable - sleeping"
             sleep 2
           done
-      - name: Run unit tests
-        run: dotnet test FinanceTrackerAppTest/FinanceTrackerAppTest.csproj --no-build --verbosity normal
+      - name: Run xUnit tests
+        run: dotnet test finance.tracker-csharp.sln --no-build --verbosity normal
 
       # 8. Publish the project
       - name: Publish project
