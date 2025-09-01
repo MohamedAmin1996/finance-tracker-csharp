@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:15
+        image: postgres:latest
         env:
           POSTGRES_USER: finance_user
           POSTGRES_PASSWORD: supersecret
@@ -77,11 +77,12 @@ jobs:
       - name: Run Docker container
         run: |
           docker run -d --name test-container \
-          -e DB_HOST=host.docker.internal \
+          -e DB_HOST=postgres \
           -e DB_PORT=5432 \
           -e DB_NAME=finance_db \
           -e DB_USER=finance_user \
           -e DB_PASSWORD=supersecret \
+          --network finance_network \
           $IMAGE_NAME
           sleep 5
           docker logs test-container
