@@ -57,7 +57,7 @@ jobs:
 
       # 6. Build the project
       - name: Build project
-        run: dotnet build FinanceTrackerApp/FinanceTrackerApp.csproj --configuration Release --no-restore
+        run: dotnet build finance-tracker-csharp.sln --configuration Release 
 
       # 7. Run unit tests (wait for postgres)
       - name: Wait for Postgres
@@ -67,7 +67,7 @@ jobs:
             sleep 2
           done
       - name: Run xUnit tests
-        run: dotnet test finance-tracker-csharp.sln --no-build --verbosity normal
+        run: dotnet test FinanceTrackerAppTest/FinanceTrackerAppTest.csproj --configuration Release --verbosity normal
 
       # 8. Publish the project
       - name: Publish project
