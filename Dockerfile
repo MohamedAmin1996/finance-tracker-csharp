@@ -27,10 +27,6 @@ WORKDIR /app
 # Copy published app
 COPY --from=build /app/publish .
 
-# Copy wait script and make it executable inside container
-COPY wait-for-postgres.sh /app/wait-for-postgres.sh
-RUN ["chmod", "+x", "/app/wait-for-postgres.sh"]
-
 # Use wait script as entrypoint
-ENTRYPOINT ["/app/wait-for-postgres.sh", "dotnet", "FinanceTrackerApp.dll"]
+ENTRYPOINT ["dotnet", "FinanceTrackerApp.dll"]
 
