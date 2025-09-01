@@ -9,20 +9,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_USER: finance_user
-          POSTGRES_PASSWORD: supersecret
-          POSTGRES_DB: finance_db
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U finance_user -d finance_db"
-          --health-interval 2s
-          --health-timeout 2s
-          --health-retries 10
 
     env:
       DB_HOST: postgres
@@ -61,7 +47,7 @@ jobs:
       - name: Build project
         run: dotnet build finance-tracker-csharp.sln --configuration Release 
 
-      # 7. Run unit tests (wait for postgres)
+      # 7. Run unit tests
       - name: Run xUnit tests
         run: dotnet test FinanceTrackerAppTest/FinanceTrackerAppTest.csproj --configuration Release --verbosity normal
 
@@ -73,31 +59,55 @@ jobs:
       - name: Build Docker image
         run: docker build -t $IMAGE_NAME .
 
-      # 10. Run container to test
-      - name: Run Docker container
+      # 10. Run Docker containers for integration test
+      - name: Run Docker containers for integration test
         run: |
-          docker run -d --name test-container \
-          -e DB_HOST=postgres \
-          -e DB_PORT=5432 \
-          -e DB_NAME=finance_db \
-          -e DB_USER=finance_user \
-          -e DB_PASSWORD=supersecret \
-          $IMAGE_NAME
-          sleep 5
-          docker logs test-container
+          # 1. Create a network
+          docker network create finance_network
 
-      # 11. Stop and remove container
-      - name: Clean up Docker container
+          # 2. Start Postgres container
+          docker run -d --name postgres \
+            --network finance_network \
+            -e POSTGRES_USER=finance_user \
+            -e POSTGRES_PASSWORD=supersecret \
+            -e POSTGRES_DB=finance_db \
+            postgres:latest
+
+          # 3. Wait for Postgres health
+          until docker exec postgres pg_isready -U finance_user -d finance_db; do
+            echo "Postgres is unavailable - sleeping"
+            sleep 2
+          done
+
+          # 4. Start app container after Postgres is healthy
+          docker run -d --name test-app \
+            --network finance_network \
+            -e DB_HOST=postgres \
+            -e DB_PORT=5432 \
+            -e DB_NAME=finance_db \
+            -e DB_USER=finance_user \
+            -e DB_PASSWORD=supersecret \
+            $IMAGE_NAME
+
+          # 5. Wait a few seconds for app to initialize
+          sleep 10
+
+          # 6. Show logs to verify connection
+          docker logs test-app
+
+      # 11. Stop and remove containers + network
+      - name: Clean up Docker containers and network
         run: |
-          docker stop test-container
-          docker rm test-container
+          docker stop test-app postgres
+          docker rm test-app postgres
+          docker network rm finance_network
 
       # 12. Login to DockerHub
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
-          username: DOCKER_HUB_USERNAME
-          password: DOCKER_HUB_PASSWORD
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
       # 13. Push Docker image
       - name: Push Docker image
