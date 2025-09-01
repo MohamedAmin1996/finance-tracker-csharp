@@ -114,6 +114,9 @@ jobs:
           docker network rm finance_network
 
       # 13. Login to DockerHub
+      - name: Logout from DockerHub
+        run: docker logout
+
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
