@@ -67,7 +67,7 @@ jobs:
             sleep 2
           done
       - name: Run unit tests
-        run: dotnet test FinanceTrackerApp.Tests/FinanceTrackerApp.Tests.csproj --no-build --verbosity normal
+        run: dotnet test FinanceTrackerAppTest/FinanceTrackerAppTest.csproj --no-build --verbosity normal
 
       # 8. Publish the project
       - name: Publish project
