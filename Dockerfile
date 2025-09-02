@@ -1,32 +1,21 @@
-# Use official .NET SDK image for building
+# Stage 1: Build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
-# Set working directory inside container
 WORKDIR /app
 
-# Copy the project file and restore dependencies
+# Copy csproj and restore dependencies
 COPY ./FinanceTrackerApp/FinanceTrackerApp.csproj ./FinanceTrackerApp/
 RUN dotnet restore ./FinanceTrackerApp/FinanceTrackerApp.csproj
 
-# Copy the entire project
+# Copy entire project and build
 COPY ./FinanceTrackerApp ./FinanceTrackerApp
-
-# Set working directory to the project folder
 WORKDIR /app/FinanceTrackerApp
-
-# Build the project
-RUN dotnet build FinanceTrackerApp.csproj -c Release
-
-# Publish the project
 RUN dotnet publish FinanceTrackerApp.csproj -c Release -o /app/publish
 
-# Final image
+# Stage 2: Runtime
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS final
 WORKDIR /app
 
-# Copy published app
+# Copy published output
+RUN apt-get update && apt-get install -y bash && rm -rf /var/lib/apt/lists/*
 COPY --from=build /app/publish .
-
-# Use wait script as entrypoint
-ENTRYPOINT ["dotnet", "FinanceTrackerApp.dll"]
-

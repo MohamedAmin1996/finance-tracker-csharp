@@ -9,13 +9,23 @@ services:
     env_file:
       - .env
     environment:
-      DB_HOST: postgres   # override for container environment
+      DB_HOST: postgres
     depends_on:
       postgres:
         condition: service_healthy
-    command: ["dotnet", "FinanceTrackerApp.dll"]
+    stdin_open: true
+    tty: true
     networks:
       - finance_network
+    command: >
+      bash -c "
+      until pg_isready -h ${DB_HOST} -p ${DB_PORT} -U ${DB_USER}; do
+        echo 'Postgres is unavailable - sleeping';
+        sleep 2;
+      done;
+      echo 'Postgres is up! Starting app';
+      exec dotnet FinanceTrackerApp.dll
+      "
 
   postgres:
     image: postgres:latest
@@ -36,7 +46,6 @@ services:
       interval: 2s
       timeout: 2s
       retries: 10
-
 
 volumes:
   db_data:
