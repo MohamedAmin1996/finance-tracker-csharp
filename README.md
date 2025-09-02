@@ -1,6 +1,6 @@
 # Finance Tracker CLI
 
-**Personal Finance Tracker** is a CLI application that helps users track their income and expenses. It is built with **C# (.NET 8)** and **Python 3.11**, using **PostgreSQL** as the database. The project is fully **containerized with Docker**, includes **EF Core/Alembic migrations**, **unit tests**, and a **CI/CD pipeline** setup for GitHub Actions.
+**Personal Finance Tracker** is a CLI application that helps users track their income and expenses. It is built with **C# (.NET 8)**, using **PostgreSQL** as the database. The project is fully **containerized with Docker**, includes **EF Core**, **unit tests**, and a **CI/CD pipeline** setup for GitHub Actions.
 
 ---
 
