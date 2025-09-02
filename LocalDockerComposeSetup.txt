@@ -1,0 +1,27 @@
+---------------------------------------------------------------------------------------------
+-Pull Postgres-
+
+docker pull postgres:latest
+
+Note: Do this only if you dont have the image.
+
+---------------------------------------------------------------------------------------------
+-Build FinanceTrackerApp-
+
+docker-compose build OR docker-compose build --no-cache
+---------------------------------------------------------------------------------------------
+-Start the containers via docker-compose.yml-
+
+docker-compose up -d
+
+---------------------------------------------------------------------------------------------
+-Start the FinanceTrackerApp container-
+
+docker exec -it finance_tracker_app bash
+
+---------------------------------------------------------------------------------------------
+-Type your CLI commands-
+
+dotnet FinanceTrackerApp.dll add-income 1500 Salary --description "Test"
+dotnet FinanceTrackerApp.dll list-all
+dotnet FinanceTrackerApp.dll help

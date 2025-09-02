@@ -1,0 +1,44 @@
+---------------------------------------------------------------------------------------------
+-Open Docker Plyground on you browser-
+
+https://labs.play-with-docker.com/
+
+---------------------------------------------------------------------------------------------
+-Pull Postgres and FinanceTrackerApp images-
+
+docker pull postgres:latest
+docker pull mohamedamin1996/finance-tracker-app:2025-09-02-run15
+
+NOTE: For the app image, get the latest tag which is the latest images version
+
+---------------------------------------------------------------------------------------------
+-Start a network for postgres and app containers to communicate with-
+
+docker network create finance_network
+---------------------------------------------------------------------------------------------
+-Start the Postgres container-
+
+docker run -d --name finance_tracker_postgres --network finance_network \
+  -e POSTGRES_USER=finance_user \
+  -e POSTGRES_PASSWORD=supersecret \
+  -e POSTGRES_DB=finance_db \
+  postgres:latest
+
+---------------------------------------------------------------------------------------------
+-Start the FinanceTrackerApp container-
+
+docker run -it --rm --name finance_tracker_app --network finance_network \
+  -e DB_HOST=finance_tracker_postgres \
+  -e DB_PORT=5432 \
+  -e DB_NAME=finance_db \
+  -e DB_USER=finance_user \
+  -e DB_PASSWORD=supersecret \
+  -e LOG_LEVEL=Information \
+  mohamedamin1996/finance-tracker-app:2025-09-02-run15 \
+
+---------------------------------------------------------------------------------------------
+-Type your CLI commands-
+
+dotnet FinanceTrackerApp.dll add-income 1500 Salary --description "Test"
+dotnet FinanceTrackerApp.dll list-all
+dotnet FinanceTrackerApp.dll help
