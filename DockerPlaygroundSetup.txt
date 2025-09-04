@@ -34,7 +34,7 @@ docker run -it --rm --name finance_tracker_app --network finance_network \
   -e DB_USER=finance_user \
   -e DB_PASSWORD=supersecret \
   -e LOG_LEVEL=Information \
-  mohamedamin1996/finance-tracker-app:2025-09-02-run15 \
+  mohamedamin1996/finance-tracker-app:2025-09-02-run15
 
 ---------------------------------------------------------------------------------------------
 -Type your CLI commands-
