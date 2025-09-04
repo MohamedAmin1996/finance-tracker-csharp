@@ -52,6 +52,15 @@
 git clone https://github.com/MohamedAmin1996/finance-tracker-csharp.git
 cd finance-tracker-csharp
 ```
+
+**Create a .env file copy-paste this:**
+
+- DB_HOST=finance_tracker_postgres
+- DB_PORT=5432
+- DB_NAME=finance_db
+- DB_USER=finance_user
+- DB_PASSWORD=supersecret
+- LOG_LEVEL=Information
 ---
 
 ## Usage
